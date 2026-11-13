@@ -18,13 +18,13 @@ final class SettingsOverlay extends JComponent {
   if(opened)return;
   for(int key:java.util.Set.copyOf(MobileGameDesktop.held))MobileGameDesktop.input(key,false);
   resolution=owner.resolution;full=owner.fullscreen;integer=owner.integerScale;smooth=owner.smooth;pixelArt=owner.pixelArt;bezel=owner.bezel;
-  tab=0;row=0;confirmExit=false;wasPaused=org.recompile.mobile.Mobile.isPaused;
-  org.recompile.mobile.Mobile.isPaused=true;opened=true;setVisible(true);repaint();owner.canvas.requestFocusInWindow();
+  MobileGameDesktop.uiHeld.clear();tab=0;row=0;confirmExit=false;wasPaused=org.recompile.mobile.Mobile.isPaused;
+  org.recompile.mobile.Mobile.isPaused=true;opened=true;setVisible(true);repaint();SwingUtilities.invokeLater(()->owner.canvas.requestFocusInWindow());
  }
  void close() {
   if(!opened)return;
-  opened=false;setVisible(false);org.recompile.mobile.Mobile.isPaused=wasPaused;
-  owner.canvas.requestFocusInWindow();
+  opened=false;setVisible(false);org.recompile.mobile.Mobile.isPaused=wasPaused;MobileGameDesktop.uiHeld.clear();owner.canvas.revalidate();owner.canvas.repaint();owner.frame.repaint();
+  SwingUtilities.invokeLater(()->owner.canvas.requestFocusInWindow());
  }
  int rows(){return confirmExit?2:tab==0?8:2;}
  void command(int key) {

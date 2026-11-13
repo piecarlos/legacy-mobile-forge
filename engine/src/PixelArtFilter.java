@@ -9,7 +9,7 @@ final class PixelArtFilter {
  BufferedImage apply(BufferedImage source) {
   int w=source.getWidth(),h=source.getHeight();
   boolean resized=enlarged==null||enlarged.getWidth()!=w*2||enlarged.getHeight()!=h*2;
-  if(resized){current=new int[w*h];previous=new int[w*h];output=new int[w*h*4];enlarged=new BufferedImage(w*2,h*2,BufferedImage.TYPE_INT_ARGB);}
+  if(resized){current=new int[w*h];previous=new int[w*h];output=new int[w*h*4];enlarged=new BufferedImage(w*2,h*2,BufferedImage.TYPE_INT_ARGB);enlarged.setAccelerationPriority(0f);}
   source.getRGB(0,0,w,h,current,0,w);
   if(!resized&&Arrays.equals(current,previous))return enlarged;
   int stride=w*2;

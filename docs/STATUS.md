@@ -30,3 +30,7 @@ Consulte compatibility-matrix.csv para distinguir possibilidade, teste automatiz
 - Script de empacotamento gerou executável com Java incluído; executável abriu de outra pasta e encerrou pelo evento de término do MIDlet.
 - SDL3 inicializou sem erros e enumerou zero gamepads conectados; helper permaneceu ativo. Isso não valida hardware Xbox/PlayStation.
 - ReShade Direct3D carregou e compilou LMF_Subtle.fx; OpenGL apresentou falha no driver ao encerrar.
+
+## Correção 0.1.1 — retorno das configurações
+
+A troca janela/tela cheia mantém o mesmo peer nativo, evitando recriar o alvo gráfico do ReShade. Redesenho e foco são solicitados ao fechar o menu; buffers dinâmicos do jogo não usam cache acelerado de imagem. Testes de geometria, preferências, menu e ciclos de tela executados; o reteste visual no hardware do usuário permanece necessário.
