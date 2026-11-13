@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+MIDlet-Name: Forge Demo
+MIDlet-Vendor: Legacy Mobile Forge
+MIDlet-Version: 1.0.0
+MIDlet-1: Forge Demo,,DemoMIDlet
+MicroEdition-Profile: MIDP-2.0
+MicroEdition-Configuration: CLDC-1.1
