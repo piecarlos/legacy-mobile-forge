@@ -1,0 +1,19 @@
+{
+  "id": "romdev",
+  "repository": "https://github.com/monteslu/romdev",
+  "role": "optional-development-tool-server",
+  "adapter": "scripts/Romdev-Bridge.py",
+  "adapter_scope": "local OpenAPI discovery and candidate platform checks only",
+  "default_endpoint": "http://127.0.0.1:7331",
+  "requires": "User-started romdev server; upstream documents Node 24+",
+  "candidate_formats": {
+    ".nes": "nes", ".gb": "gb", ".gbc": "gbc", ".gba": "gba",
+    ".sfc": "snes", ".smc": "snes", ".sms": "sms", ".gg": "gamegear",
+    ".md": "genesis", ".gen": "genesis"
+  },
+  "unsupported_here": [".jar", ".jad", ".sis", ".sisx"],
+  "game_data_upload": false,
+  "installs_or_starts_server": false,
+  "player_runtime_dependency": false,
+  "rom_execution_integration": false
+}

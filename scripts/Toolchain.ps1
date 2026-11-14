@@ -9,10 +9,10 @@ function Get-ForgeJdk {
 function Invoke-ForgeTool {
  param([string]$File,[string[]]$ToolArgs)
  $info=New-Object System.Diagnostics.ProcessStartInfo
- $info.FileName=$File;$info.UseShellExecute=$false;$info.CreateNoWindow=$true
+ $info.FileName=$File;$info.UseShellExecute=$false;$info.CreateNoWindow=$true;$info.RedirectStandardOutput=$true;$info.RedirectStandardError=$true
  $quoted=foreach($value in $ToolArgs){'"'+[regex]::Replace([regex]::Replace($value,'(\\*)"','$1$1\"'),'(\\+)$','$1$1')+'"'}
  $info.Arguments=$quoted -join ' '
  $process=New-Object System.Diagnostics.Process;$process.StartInfo=$info
- try{[void]$process.Start();$process.WaitForExit();$code=$process.ExitCode}finally{$process.Dispose()}
+ try{[void]$process.Start();$stdout=$process.StandardOutput.ReadToEndAsync();$stderr=$process.StandardError.ReadToEndAsync();$process.WaitForExit();$code=$process.ExitCode;$outText=$stdout.GetAwaiter().GetResult();$errText=$stderr.GetAwaiter().GetResult();if($outText){Write-Host $outText.TrimEnd()};if($errText){Write-Host $errText.TrimEnd()}}finally{$process.Dispose()}
  if($code -ne 0){throw "Falhou: $File (código $code)"}
 }

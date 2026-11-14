@@ -34,6 +34,12 @@ O usuário quer avaliar recompilação nativa no próximo jogo, preservando a ro
 
 A base inclui SDL3 + banco comunitário de mapeamentos e bridge próprio. SDL padroniza posições físicas de botões; validar o dispositivo real, USB/Bluetooth, hotplug e rótulos. Não tratar DualShock/DualSense como XInput nativo. Não instalar drivers ou remapeadores de sistema automaticamente. Backend Win32 anterior é fallback selecionável no perfil.
 
+## Launcher e ferramentas opcionais
+
+Seleção/importação de jogo no Windows deve usar o frontend nativo em C (`engine/native/GameLauncher.c`), com IFileOpenDialog, validação e logs antes da JVM. Não reintroduzir JFileChooser/JOptionPane no fluxo de importação. O backend Java do Meteos é headless nessa etapa; os menus internos do port permanecem separados. Leia docs/NATIVE-LAUNCHER.md para reaproveitar o perfil por jogo.
+
+romdev possui uma ponte opcional de descoberta em scripts/Romdev-Bridge.py e um perfil em engine/tools/romdev.json. Leia docs/ROMDEV.md antes de usar. Ela consulta somente um servidor local iniciado pelo usuário, não instala dependências e rejeita J2ME/Symbian antes de qualquer requisição. Descoberta de API não equivale a integração de execução de ROMs.
+
 ## ReShade
 
 Ler docs/RESHADE.md. Experimentos em experiments/ são privados e separados de qualquer release estável. Não publicar DLL/setup/shaders baixados do ReShade. Registrar a API realmente interceptada e compilação do efeito. Um DLL carregado não comprova melhoria visual. OpenGL apresentou falha no driver AMD neste ambiente; não habilitá-lo por padrão.

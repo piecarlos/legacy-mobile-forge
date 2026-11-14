@@ -1,6 +1,10 @@
 @echo off
 setlocal
 cd /d "%~dp0"
+if exist "app\launcher.ini" (
+ "MeteosLauncher.exe" --reshade
+ exit /b
+)
 if not exist "d3d9.dll" (
  echo ReShade is optional. Obtain the official 64-bit ReShade DLL and place it here as d3d9.dll.
  echo See README.md. The normal MeteosPreview.exe does not require ReShade.

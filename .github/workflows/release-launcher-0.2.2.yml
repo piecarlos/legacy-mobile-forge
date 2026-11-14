@@ -1,0 +1,50 @@
+name: Publish native C Meteos launcher 0.2.2
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/release-launcher-0.2.2.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Verify runtime and build game-free launcher
+        shell: pwsh
+        run: |
+          ./scripts/Setup-MeteosRuntime.ps1
+          ./scripts/Build-MeteosLauncher.ps1 -OutputPath ./build/public-launcher
+      - name: Verify optional romdev bridge contract
+        shell: pwsh
+        run: python ./scripts/Verify-RomdevBridge.py
+      - name: Inspect public ZIP and include runtime sources
+        shell: pwsh
+        run: |
+          python ./scripts/Verify-LauncherArchive.py ./build/public-launcher/MeteosLauncher-0.2.2-preview-windows-x64.zip
+          Add-Type -AssemblyName System.IO.Compression.FileSystem
+          $zip='./build/public-launcher/MeteosLauncher-0.2.2-preview-windows-x64.zip'
+          $archive=[IO.Compression.ZipFile]::OpenRead((Resolve-Path $zip))
+          try {
+            $forbidden=@($archive.Entries|Where-Object { $_.FullName -match '(^|/)(game|saves)/|\.log$|bezel\.png$|d3d9\.dll$' })
+            if($forbidden.Count){throw 'Public ZIP contains private game data or experimental binaries.'}
+            if(!($archive.Entries|Where-Object FullName -match 'MeteosLauncher.exe$')){throw 'Launcher executable missing.'}
+          } finally { $archive.Dispose() }
+          $source='./build/public-launcher/freej2me-plus-087fe289-source.zip'
+          Invoke-WebRequest 'https://codeload.github.com/TASEmulators/freej2me-plus/zip/087fe2899579e1f439655c0fc3444cbc3afeea2e' -OutFile $source
+          Get-FileHash $zip,$source -Algorithm SHA256 | ForEach-Object { "$($_.Hash.ToLower())  $([IO.Path]::GetFileName($_.Path))" } | Set-Content ./build/public-launcher/SHA256SUMS.txt
+      - name: Verify Windows native dialog API
+        shell: pwsh
+        run: |
+          python -c "import pathlib,zipfile,subprocess; root=pathlib.Path('build/native-dialog-probe'); zipfile.ZipFile('build/public-launcher/MeteosLauncher-0.2.2-preview-windows-x64.zip').extractall(root); exe=next(root.rglob('MeteosLauncher.exe')).resolve(); result=subprocess.run([str(exe),'--probe-dialog'],timeout=20); print((exe.parent/'app/logs/launcher.log').read_text()); assert result.returncode==0"
+      - name: Publish prerelease
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create v0.2.2-preview.1 ./build/public-launcher/MeteosLauncher-0.2.2-preview-windows-x64.zip ./build/public-launcher/freej2me-plus-087fe289-source.zip ./build/public-launcher/SHA256SUMS.txt --target $env:GITHUB_SHA --prerelease --title 'Meteos Launcher 0.2.2 — Windows testing preview' --notes-file ./docs/RELEASE-0.2.2.md
