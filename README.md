@@ -4,6 +4,10 @@ Windows tooling for adapting Java ME games with reusable video settings, control
 
 ## Meteos Astro Blocks
 
+![Meteos Astro Blocks presentation preview with a custom border](docs/screenshots/meteos-preview.jpg)
+
+*Development preview with a custom illustrated border. Public builds use a neutral border by default; the illustrated border is not bundled with the build.*
+
 See [Meteos setup and required game version](ports/meteos/README.md). The supported input is **MIDlet 1.0.4, 240×320**, 303,829 bytes, SHA-256 `5756d421e3b878d124fb9c8453a6738ecb99ff6425679668ab2cb6e7b6df5021`. Supply your own original JAR. Other variants are not validated.
 
 The first public release contains source/build tooling, not a prebuilt commercial game. Normal rendering is recommended; ReShade is optional and experimental.
