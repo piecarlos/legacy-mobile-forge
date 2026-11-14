@@ -1,4 +1,4 @@
-# Meteos Launcher 0.2.3 - local visual preview
+# Meteos Launcher 0.2.3 - Windows testing preview
 
 - Shared native C launcher opens before the game: artwork, four tabs, display choices, language/logs and a fixed Play button.
 - Restored the owner's supplied illustrated border, also used in the header.
@@ -7,7 +7,7 @@
 - Exact JAR verification, safe local import, bundled Java and local-only logs remain. No game, saves or ReShade DLL is bundled.
 - Generic private case packaging now uses the same native launcher instead of starting the Java game immediately.
 
-This remains a Java ME adaptation, not C++ game recompilation. Blogger and native game translation remain later work. Local preview; no new GitHub release has been published for this change.
+This remains a Java ME adaptation, not C++ game recompilation. Blogger and native game translation remain later work. The game-free Windows ZIP includes Java. Supply your own Meteos Astro Blocks MIDlet 1.0.4 / 240x320 JAR (303829 bytes), SHA-256 `5756d421e3b878d124fb9c8453a6738ecb99ff6425679668ab2cb6e7b6df5021`.
 
 ## Português
 
