@@ -10,3 +10,11 @@
 - ReShade: https://reshade.me/ e https://github.com/crosire/reshade
 
 Versões e hashes locais estão em dependencies.lock.json. Não transformar cobertura declarada por uma biblioteca em afirmação de teste físico deste projeto.
+
+## romdev — candidate for future console projects
+
+- Repository: https://github.com/monteslu/romdev
+- Reviewed README on 2026-11-13. Documents an MCP/HTTP tool server for console ROM builds, emulation, frame inspection, reverse engineering and selected static recompilation targets. Node 24+; toolchains and emulator cores are delivered through npm/WebAssembly.
+- Useful candidates: scripted input and screenshots, frame-by-frame differential checks, flashing detection, and tooling for future console projects.
+- The documented systems do not include Java ME/J2ME or Symbian. It is not a drop-in JAR-to-C++ converter and does not replace Craft Anything or FreeJ2ME in the current Meteos adapter.
+- Keep as a research reference. No dependency installed or integrated, and no local functionality/compatibility has been validated. Evaluate a small original fixture on a documented target before adding it to a future workflow.
