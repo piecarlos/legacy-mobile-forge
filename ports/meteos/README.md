@@ -18,7 +18,9 @@ Supply your own JAR. Filename alone is insufficient: renamed or different handse
 
 ## Build your portable copy
 
-This first public preview distributes source and build instructions. Building requires Windows x64, PowerShell and **JDK 21+**. Craft Anything is used for additional triage when installed. From the repository root:
+For a prebuilt game-free launcher, use [Releases](https://github.com/piecarlos/legacy-mobile-forge/releases/tag/v0.2.1-preview.1). Extract the ZIP, open MeteosLauncher.exe and select your original JAR. Java is included; no compiler is needed to play.
+
+Building from source requires Windows x64, PowerShell and **JDK 21+**. Craft Anything is used for additional triage when installed. From the repository root:
 
 ```powershell
 .\scripts\Setup-Dependencies.ps1
@@ -52,4 +54,4 @@ Settings: `app/video.properties`. Saves: `app/saves`. Back these up before repla
 
 ## Português
 
-Use a versão **1.0.4, 240×320**, com tamanho e SHA-256 da tabela. O nome sozinho não identifica a variante. Forneça seu próprio JAR; não incluímos o jogo. Os comandos acima geram sua cópia portátil com Java incluído. Esta prévia pública é de fontes/build; a versão normal é a recomendada e o ReShade é experimental. Logs ficam em `app/logs` e podem ser abertos na aba Geral. Não existe telemetria automática.
+Use a versão **1.0.4, 240×320**, com tamanho e SHA-256 da tabela. O nome sozinho não identifica a variante. Forneça seu próprio JAR; não incluímos o jogo. Em Releases, o launcher pronto pede o JAR na primeira execução; Java já acompanha e não é necessário compilar. Os comandos acima são para build a partir dos fontes. A versão normal é a recomendada e o ReShade é experimental. Logs ficam em `app/logs` e podem ser abertos na aba Geral. Não existe telemetria automática.
