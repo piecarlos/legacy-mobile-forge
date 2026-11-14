@@ -28,7 +28,7 @@ O usuário quer avaliar recompilação nativa no próximo jogo, preservando a ro
 - Separar análise, recuperação de Java e tradução nativa. Compilar Java recuperado ou emitir C++ não prova equivalência nem um jogo jogável.
 - Primeiro buscar uma partida mínima funcional; depois adaptar apresentação, menus, idiomas, controle e logs para a rota nativa. As classes Swing atuais não se tornam menus C++ automaticamente.
 - Registrar bloqueadores concretos e uma lista curta de correções. Não entrar em ciclos de investigação/revisão, instalar SDKs grandes ou acionar outros agentes por conta própria. Se a rota nativa não avançar, entregar a adaptação Java funcional e deixar a experiência C++ separada.
-- Usar romdev apenas como referência para futuros alvos de console documentados. Não encaminhar JARs J2ME ou SIS/SISX para essa ferramenta como se fossem ROMs compatíveis.
+- Usar a ponte romdev somente para descoberta de um servidor local e candidatos de console documentados; execução de ROMs ainda não está integrada. Não encaminhar JARs J2ME ou SIS/SISX para essa ferramenta como se fossem ROMs compatíveis.
 
 ## Controles
 

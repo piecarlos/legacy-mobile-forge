@@ -11,7 +11,7 @@ The current executable runs Java ME through FreeJ2ME-Plus. No native C++ game ha
 | Arlecchino | Candidate member renaming and multi-decompiler recovery of compilable Java | Documentation reviewed; not installed/integrated/tested locally |
 | Enigma | Candidate manual mappings, class/member renaming and readable code navigation | Documentation reviewed; not installed/integrated/tested locally |
 | J2ME Recomp Universal | Experimental bytecode-to-C++ translator and its own native runtime | Repository/code inspected; no local build or game validation yet |
-| romdev | Candidate console tooling, scripted input, frame comparison and flashing checks | Reference only; documented platforms do not include J2ME/Symbian |
+| romdev | Candidate console tooling, scripted input, frame comparison and flashing checks | Optional metadata bridge; mock contract tested, execution unvalidated; no documented J2ME/Symbian target |
 
 Sources: [Arlecchino](https://github.com/wehrwolfmann/arlecchino), [Enigma](https://github.com/FabricMC/Enigma), [J2ME Recomp Universal](https://github.com/denisfox3554/J2me-recomp-universial), [romdev](https://github.com/monteslu/romdev). Pin the actual revision and check its instructions/license before use. The names alone do not establish maturity or compatibility.
 

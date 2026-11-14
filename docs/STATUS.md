@@ -1,6 +1,6 @@
 # Estado do projeto
 
-Base de adaptação; launcher 0.2.2 em preparação com importador nativo C. Não é um recompilador universal. Próximo trabalho: novo jogo com referência Java e investigação nativa separada; ler NATIVE-PORTING.md.
+Base de adaptação; launcher 0.2.2-preview.1 publicado com importador nativo C. Não é um recompilador universal. Próximo trabalho: novo jogo com referência Java e investigação nativa separada; ler NATIVE-PORTING.md.
 
 ## Implementado
 
@@ -60,3 +60,5 @@ AGENTS.md, NATIVE-PORTING.md and templates/GAME-PLAN.md now define a staged inve
 Importer/bootstrap moved to engine/native/GameLauncher.c: Windows TaskDialog/IFileOpenDialog, native SHA-256 validation and safe copy, per-game INI profile, saved/system language and local rotating launcher logs. The Java backend has no file chooser and starts only after native validation. No Python/CLR dependency is added to the player package. Game execution remains FreeJ2ME/Java.
 
 Local checks passed for archive contents, invalid/correct JAR import, Unicode/space-containing source paths, valid-cache preservation and IFileOpenDialog initialization. Import/validation ran with javaw renamed/unavailable. The probe configures the native dialog object without displaying it; visual appearance needs desktop review. The optional romdev adapter passed its mock-server discovery/local-endpoint/rejection checks. The real localhost probe found no server running. No romdev runtime or game execution was integrated.
+
+Published: https://github.com/piecarlos/legacy-mobile-forge/releases/tag/v0.2.2-preview.1 . CI run 43596454226 passed native C compilation, archive audit, romdev bridge contract, native Windows dialog API probe and prerelease publication. Native-to-Java handoff and backend JAR validation also passed locally; this does not replace full gameplay/controller testing.
