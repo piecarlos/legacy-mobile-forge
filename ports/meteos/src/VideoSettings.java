@@ -13,7 +13,7 @@ public final class VideoSettings {
     final Path file;
     String language="auto";
     JMenu menu; JMenuItem settings,toggle;
-    int resolution;
+    int resolution = 1;
     boolean integerScale = true, smooth, fullscreen;
     boolean pixelArt; final PixelArtFilter pixelFilter=new PixelArtFilter(); boolean bezel = true; final SpaceBezel artwork = new SpaceBezel();
     JFrame frame;
@@ -28,7 +28,7 @@ public final class VideoSettings {
         if (!Files.exists(file)) {UiText.select(language);return;}
         try (InputStream in=Files.newInputStream(file)) {
             p.load(in);language=p.getProperty("language","auto");UiText.select(language);
-            resolution=Math.max(0,Math.min(SIZES.length-1,Integer.parseInt(p.getProperty("resolution","0"))));
+            resolution=Math.max(0,Math.min(SIZES.length-1,Integer.parseInt(p.getProperty("resolution","1"))));
             integerScale=Boolean.parseBoolean(p.getProperty("integerScale","true"));
             smooth=Boolean.parseBoolean(p.getProperty("smooth","false"));pixelArt=Boolean.parseBoolean(p.getProperty("pixelArt","false"));if(pixelArt)smooth=false;
             fullscreen=Boolean.parseBoolean(p.getProperty("fullscreen","false")); bezel=Boolean.parseBoolean(p.getProperty("bezel","true"));

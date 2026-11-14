@@ -6,7 +6,9 @@ Windows tooling for adapting Java ME games with reusable video settings, control
 
 ![Meteos Astro Blocks presentation preview with a custom border](docs/screenshots/meteos-preview.jpg)
 
-*Development preview with a custom illustrated border. Public builds use a neutral border by default; the illustrated border is not bundled with the build.*
+*Custom illustrated border supplied by the project owner. Restored in the local 0.2.3 preview; the older 0.2.2 download below uses the neutral border.*
+
+The next launcher preview uses the shared native C shell: game artwork, Quick Setup / Display / Controls / System tabs and a fixed Play button. It opens before the game on every launch. Full HD is the initial window size, constrained to the desktop; existing preferences take priority. The native shell is now also the default for `Build-GameProject.ps1 -Package`. See [launcher details and verification](docs/NATIVE-LAUNCHER.md). The 0.2.3 visual preview is local until reviewed; the published download remains 0.2.2.
 
 See [Meteos setup and required game version](ports/meteos/README.md). The supported input is **MIDlet 1.0.4, 240×320**, 303,829 bytes, SHA-256 `5756d421e3b878d124fb9c8453a6738ecb99ff6425679668ab2cb6e7b6df5021`. Supply your own original JAR. Other variants are not validated.
 

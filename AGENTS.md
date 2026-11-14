@@ -38,6 +38,8 @@ A base inclui SDL3 + banco comunitário de mapeamentos e bridge próprio. SDL pa
 
 Seleção/importação de jogo no Windows deve usar o frontend nativo em C (`engine/native/GameLauncher.c`), com IFileOpenDialog, validação e logs antes da JVM. Não reintroduzir JFileChooser/JOptionPane no fluxo de importação. O backend Java do Meteos é headless nessa etapa; os menus internos do port permanecem separados. Leia docs/NATIVE-LAUNCHER.md para reaproveitar o perfil por jogo.
 
+O padrão visual é o shell nativo em `engine/native/LauncherUi.h`: cabeçalho com arte do caso, abas Início/Imagem/Controles/Sistema, seletores simples e botão Jogar fixo. Build-GameProject -Package usa esse shell antes de iniciar o backend. Não copiar opções 3D sem implementação (DLSS, presets de GPU, cheats ou compilação de shaders) só por aparecerem na referência. Resolução inicial Full HD limitada à área útil; preferências existentes prevalecem. Arte fornecida/aprovada pelo usuário pode compor a apresentação; não extrair arte comercial do JAR para publicá-la automaticamente.
+
 romdev possui uma ponte opcional de descoberta em scripts/Romdev-Bridge.py e um perfil em engine/tools/romdev.json. Leia docs/ROMDEV.md antes de usar. Ela consulta somente um servidor local iniciado pelo usuário, não instala dependências e rejeita J2ME/Symbian antes de qualquer requisição. Descoberta de API não equivale a integração de execução de ROMs.
 
 ## ReShade

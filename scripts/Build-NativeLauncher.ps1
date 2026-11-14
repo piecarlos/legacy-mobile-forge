@@ -16,7 +16,7 @@ $argsList=@('/nologo','/TC','/std:c17','/utf-8','/O2','/MT','/W4','/D_CRT_SECURE
 foreach($part in @('ucrt','shared','um','winrt')){$argsList+=('/I'+(Join-Path $sdk ('Include/'+$sdkVersion.Name+'/'+$part)))}
 $argsList+=@((Join-Path $root 'engine/native/GameLauncher.c'),('/Fo'+[IO.Path]::ChangeExtension($output,'.obj')),('/Fe'+$output),'/link','/SUBSYSTEM:WINDOWS','/DYNAMICBASE','/NXCOMPAT','/MANIFEST:EMBED',('/LIBPATH:'+(Join-Path $vc.FullName 'lib/x64')))
 foreach($part in @('ucrt','um')){$argsList+=('/LIBPATH:'+(Join-Path $sdk ('Lib/'+$sdkVersion.Name+'/'+$part+'/x64')))}
-$argsList+=@('bcrypt.lib','ole32.lib','shell32.lib','uuid.lib','comctl32.lib','user32.lib','advapi32.lib')
+$argsList+=@('bcrypt.lib','ole32.lib','shell32.lib','uuid.lib','comctl32.lib','user32.lib','advapi32.lib','gdi32.lib','windowscodecs.lib','dwmapi.lib')
 $nativePath=$env:PATH
 try{
  $env:PATH=(Split-Path $compiler)+';'+(Join-Path $sdk ('bin/'+$sdkVersion.Name+'/x64'))+';'+$nativePath

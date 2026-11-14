@@ -8,6 +8,7 @@ $gameInfo=Get-Content -LiteralPath (Join-Path $case 'project.json') -Raw|Convert
 if($gameInfo.platform -ne 'j2me' -or [IO.Path]::GetExtension($gameInfo.input) -ne '.jar'){throw 'Build disponível para JAR/J2ME. Classifique outros formatos antes de adaptar.'}
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 $sourceJar=Join-Path $case "input/$($gameInfo.input)"
+if((Get-FileHash -LiteralPath $sourceJar -Algorithm SHA256).Hash -ne $gameInfo.sha256){throw 'Input hash changed. Recheck the original case before building.'}
 $archive=[IO.Compression.ZipFile]::OpenRead($sourceJar)
 try{
  $entry=$archive.GetEntry('META-INF/MANIFEST.MF')
@@ -43,7 +44,30 @@ if($Package){
  $dist=Join-Path $out 'dist';New-Item -ItemType Directory -Path $dist -Force|Out-Null
  $target=Join-Path $dist $gameInfo.id
  if(Test-Path $target){throw 'Pacote já existe. Preserve saves e escolha uma nova saída antes de substituir.'}
- Invoke-ForgeTool (Join-Path $jdk 'bin/jpackage.exe') @('--type','app-image','--input',$stage,'--main-jar','legacy-mobile.jar','--main-class','MobileGameDesktop','--name',$gameInfo.id,'--app-version','0.1.0','--dest',$dist,'--runtime-image',$runtime,'--temp',(Join-Path $temp ('jpackage-'+[guid]::NewGuid())))
+ $null=New-Item -ItemType Directory -Path $target
+ Copy-Item -LiteralPath $stage -Destination (Join-Path $target 'app') -Recurse
+ Copy-Item -LiteralPath $runtime -Destination (Join-Path $target 'runtime') -Recurse
+ & (Join-Path $PSScriptRoot 'Build-NativeLauncher.ps1') -OutputPath (Join-Path $target ($gameInfo.id+'.exe'))
+ $midletVersion='unknown'
+ if($manifestText -match '(?m)^MIDlet-Version:\s*([^\r\n]+)'){$midletVersion=$Matches[1].Trim()}
+ # INI metadata must remain one line per field; profiles are private case data.
+ foreach($field in @($gameInfo.title,$gameInfo.input,$midletVersion)){if($field -match '[\r\n]'){throw 'Invalid multiline launcher metadata.'}}
+ @"
+[launcher]
+backend=java
+title=$($gameInfo.title)
+artwork=assets\bezel.png
+game_version=$midletVersion
+resolution=$($gameInfo.width)x$($gameInfo.height)
+filename=$($gameInfo.input)
+size=$((Get-Item -LiteralPath $sourceJar).Length)
+sha256=$($gameInfo.sha256.ToLowerInvariant())
+game_path=game\game.jar
+entry_class=MobileGameDesktop
+classpath=app\legacy-mobile.jar;app\tools\freej2me\freej2me_plus.jar
+"@ | Set-Content -LiteralPath (Join-Path $target 'app/launcher.ini') -Encoding unicode
+ Copy-Item -LiteralPath (Join-Path $forgeRoot 'LICENSE') -Destination $target
+ Copy-Item -LiteralPath (Join-Path $forgeRoot 'THIRD-PARTY.md') -Destination $target
  Write-Output "Executável portátil: $target"
 }
 Write-Output "Build concluído: $stage"

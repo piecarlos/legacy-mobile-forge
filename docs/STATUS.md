@@ -2,6 +2,16 @@
 
 Base de adaptação; launcher 0.2.2-preview.1 publicado com importador nativo C. Não é um recompilador universal. Próximo trabalho: novo jogo com referência Java e investigação nativa separada; ler NATIVE-PORTING.md.
 
+## 0.2.3 - launcher visual padrão (prévia local, 14/11/2026)
+
+O usuário forneceu uma referência de launcher com arte, abas e botão Jogar e pediu esse padrão para o Forge. Implementado em engine/native/LauncherUi.h, em C/GDI/WIC: Início, Imagem, Controles, Sistema, importação pelo seletor Windows, idioma Windows/English/pt-BR, filtros, resolução, janela/tela cheia, escala inteira e moldura. Java só inicia por Jogar. O shell oculta durante a execução e retorna ao encerrar o processo filho; fechá-lo sai para o desktop. Sem opções 3D sem implementação.
+
+A arte fornecida pelo usuário foi restaurada em ports/meteos/assets/bezel.png, com origem/hash documentados; integra a moldura e o cabeçalho do launcher. Preferências novas usam Full HD em janela, limitada ao monitor. Preferências existentes prevalecem. Build-GameProject -Package também usa o shell, com INI por caso; seus pacotes continuam privados e incluem o jogo. A rota pública Meteos continua sem JAR.
+
+Verificações locais: C17 compilou; ZIP auditado sem jogo/saves/logs/DLL ReShade, com hash da moldura; importação válida, caminhos Unicode, cache e handoff Java passaram. Verify-LauncherUi.py exercitou a janela real, quatro abas, teclado/mouse, todas as opções de imagem, idioma, persistência e preservação de propriedades extras. Capturas Windows PrintWindow foram inspecionadas. Uma fixture Java original comprovou Jogar/ocultar/retornar sem representar teste de gameplay. A demonstração Forge foi empacotada pelo novo script e passou o mesmo teste de interface. Verificação Java offscreen confirmou Full HD inicial, viewport inteiro de 720x960 numa área 1920x1000 e carregamento efetivo da arte.
+
+O shell inclui polling XInput; o controle físico e a partida prolongada com essa nova tela ainda precisam do usuário. A versão pública no GitHub continua 0.2.2; 0.2.3 está preparada localmente para avaliação visual. O backend continua Java, sem recompilação C++ do jogo. Blogger permanece por último.
+
 ## Implementado
 
 - Núcleo J2ME reaproveitado do launcher Meteos, generalizado por perfil: título, dimensões, backend e slot do controle.

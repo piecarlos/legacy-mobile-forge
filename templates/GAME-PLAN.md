@@ -15,6 +15,7 @@
 | Craft Anything triage and archive inspection | analysis/ | Not started |
 | Original game reference: boot and playable sequence | analysis/baseline/ | Not started |
 | Java adaptation: input, sound, settings, saves, exit | output/ | Not started |
+| Shared native launcher: game artwork, tabs, Play, saved display/language settings | engine/native/LauncherUi.h + case launcher.ini; test keyboard and actual pad separately | Not started |
 | Decide whether source recovery helps | Required class/method and reason | Not assessed |
 | Arlecchino / Enigma, if justified | Revision, mappings and compilation/behavior results | Not tested |
 | Inspect and pin native translator/runtime | License, toolchain and unsupported features | Not tested |

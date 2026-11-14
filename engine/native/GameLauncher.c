@@ -21,6 +21,7 @@ static WCHAR title[256], version[80], resolution[80], reference[256], expected[8
 static WCHAR entry_class[256], classpath[2048];
 static ULONGLONG expected_size;
 static BOOL portuguese;
+static HWND picker_owner;
 static const WCHAR *tr(const WCHAR *en,const WCHAR *pt){return portuguese?pt:en;}
 
 static BOOL joined(WCHAR *out,const WCHAR *base,const WCHAR *relative){return SUCCEEDED(StringCchPrintfW(out,PATH_CAP,L"%s\\%s",base,relative));}
@@ -84,7 +85,7 @@ static HRESULT choose_file(BOOL probe){
  if(SUCCEEDED(hr))hr=IFileOpenDialog_SetOptions(picker,options|FOS_FORCEFILESYSTEM|FOS_FILEMUSTEXIST|FOS_PATHMUSTEXIST|FOS_NOCHANGEDIR);
  if(SUCCEEDED(hr))hr=IFileOpenDialog_SetFileTypes(picker,1,&filter);
  if(SUCCEEDED(hr))hr=IFileOpenDialog_SetTitle(picker,tr(L"Select your original game JAR",L"Selecione seu JAR original do jogo"));
- if(!probe&&SUCCEEDED(hr))hr=IFileOpenDialog_Show(picker,NULL);
+ if(!probe&&SUCCEEDED(hr))hr=IFileOpenDialog_Show(picker,picker_owner);
  if(!probe&&SUCCEEDED(hr))hr=IFileOpenDialog_GetResult(picker,&item);
  if(item&&SUCCEEDED(hr))hr=IShellItem_GetDisplayName(item,SIGDN_FILESYSPATH,&file);
  if(file&&SUCCEEDED(hr)&&!import_game(file))hr=HRESULT_FROM_WIN32(GetLastError());
@@ -133,7 +134,7 @@ static DWORD start_game(BOOL smoke,BOOL reshade,BOOL backend_validate){
  if(!command)return 1;
  if(!joined(executable,root,(smoke||backend_validate)?L"runtime\\bin\\java.exe":L"runtime\\bin\\javaw.exe"))goto done;
  if(GetFileAttributesW(executable)==INVALID_FILE_ATTRIBUTES){event("runtime.missing",ERROR_FILE_NOT_FOUND);goto done;}
- if(!argument(command,PATH_CAP,executable)||!argument(command,PATH_CAP,L"-Djpackage.app-version=0.2.2"))goto done;
+ if(!argument(command,PATH_CAP,executable)||!argument(command,PATH_CAP,L"-Djpackage.app-version=0.2.3"))goto done;
  if(reshade){
   if(!joined(library,root,L"d3d9.dll")||GetFileAttributesW(library)==INVALID_FILE_ATTRIBUTES){event("reshade.missing",ERROR_FILE_NOT_FOUND);goto done;}
   if(!argument(command,PATH_CAP,L"--enable-native-access=ALL-UNNAMED")||!argument(command,PATH_CAP,L"-Dsun.java2d.d3d=true"))goto done;
@@ -152,6 +153,7 @@ static DWORD start_game(BOOL smoke,BOOL reshade,BOOL backend_validate){
 done:
  free(command);return result;
 }
+#include "LauncherUi.h"
 int WINAPI wWinMain(HINSTANCE instance,HINSTANCE previous,PWSTR command_line,int show){
  (void)instance;(void)previous;(void)command_line;(void)show;
  SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
@@ -174,6 +176,7 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE previous,PWSTR command_line,int
  HRESULT initialized=CoInitializeEx(NULL,COINIT_APARTMENTTHREADED|COINIT_DISABLE_OLE1DDE);
  if(FAILED(initialized)){event("com.failed",(DWORD)initialized);goto done;}
  if(probe){HRESULT hr=choose_file(TRUE);event("dialog.probe",(DWORD)hr);result=SUCCEEDED(hr)?0:1;CoUninitialize();goto done;}
+ if(!smoke&&!backend_validate){result=run_launcher_ui(instance,reshade);CoUninitialize();goto done;}
  if(!valid_game(target)){
   if(smoke||backend_validate){CoUninitialize();goto done;}
   BOOL error=FALSE;

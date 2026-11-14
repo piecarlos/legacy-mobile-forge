@@ -27,3 +27,7 @@ Use docs/NATIVE-PORTING.md and templates/GAME-PLAN.md. Pin actual revisions and 
 - Useful candidates: scripted input and screenshots, frame-by-frame differential checks, flashing detection, and tooling for future console projects.
 - The documented systems do not include Java ME/J2ME or Symbian. It is not a drop-in JAR-to-C++ converter and does not replace Craft Anything or FreeJ2ME in the current Meteos adapter.
 - Optional discovery adapter: scripts/Romdev-Bridge.py, profile engine/tools/romdev.json, instructions docs/ROMDEV.md. The local mock OpenAPI contract and unsupported-target rejection are tested. No server is installed/running in the tested environment, and actual upstream execution/emulation has not been validated. No game data is sent. Evaluate a small original fixture on a documented target before adding an execution adapter.
+
+## Additional launcher source reference
+
+The owner supplied BilalReloaded's Uncharted port and launcher. See [the pinned source review](UNCHARTED-REFERENCE.md) for SDL3/hotplug, Xbox/PlayStation labels, row/value focus navigation and future package-update candidates. Its UI is Python/Tkinter, with a small C bootstrap. No code has been imported, no local build was run, and its PS4 runtime is not a Java ME recompiler.

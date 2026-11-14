@@ -23,9 +23,13 @@ def main():
         assert archive.testzip() is None, "Corrupt archive"
         names = [n.replace("\\", "/").lower() for n in archive.namelist()]
         assert any(n.endswith("/meteoslauncher.exe") for n in names)
-        assert not any("/game/" in n or "/saves/" in n or n.endswith((".log", "bezel.png", "d3d9.dll")) for n in names), "Private content in public archive"
+        assert not any("/game/" in n or "/saves/" in n or n.endswith((".log", "d3d9.dll")) for n in names), "Private content in public archive"
+        borders = [n for n in archive.namelist() if n.replace("\\", "/").lower().endswith("/assets/bezel.png")]
+        if borders:
+            assert len(borders) == 1
+            assert hashlib.sha256(archive.read(borders[0])).hexdigest() == "1a06bfa0a898a50843af4cbf241eb28394dce5ebd6b38c552eefdcd49b9e6c9d", "Unexpected border asset"
         assert not any(hashlib.sha256(archive.read(n)).hexdigest() == EXPECTED for n in archive.namelist() if not n.endswith("/")), "Original game bytes found"
-        print("PASS: ZIP integrity, launcher present, no original JAR/saves/logs/border/ReShade DLL")
+        print("PASS: ZIP integrity, launcher present, no original JAR/saves/logs/ReShade DLL; supplied border hash checked if present")
         if any(n.endswith("/app/launcher.ini") for n in names):
             executable = archive.read(next(n for n in archive.namelist() if n.lower().endswith("/meteoslauncher.exe")))
             pe = struct.unpack_from("<I", executable, 0x3C)[0]
