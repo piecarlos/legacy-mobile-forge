@@ -1,0 +1,31 @@
+name: Bug report / Relatar bug
+description: Report a problem with a testing preview. No automatic telemetry.
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Preview version and game variant / Versão e variante
+      placeholder: Meteos preview, MIDlet 1.0.4, 240x320
+    validations:
+      required: true
+  - type: dropdown
+    id: rendering
+    attributes:
+      label: Rendering / Imagem
+      options:
+        - Normal
+        - ReShade experimental
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: What happened and how to reproduce / O que ocorreu
+      description: Include approximate time, expected result, Windows version and controller/connection if relevant.
+    validations:
+      required: true
+  - type: textarea
+    id: log
+    attributes:
+      label: Local log / Log local
+      description: Close the game and attach the latest session-*.log from app/logs. Review it first. Do not attach game JARs, saves or credentials. No data is uploaded automatically.

@@ -1,0 +1,9 @@
+backend,device,connection,evidence,status
+Meteos-Win32,GameSir supplied by user,not-recorded,user reported gameplay working,hardware-tested-only-on-Meteos
+SDL3 bridge,no connected gamepads,local,enumeration returned zero without error,backend-init-tested
+SDL3 bridge,Xbox original USB,USB,no hardware test,not-tested
+SDL3 bridge,Xbox original wireless,Bluetooth-or-adapter,no hardware test,not-tested
+SDL3 bridge,DualShock 4,USB,no hardware test,not-tested
+SDL3 bridge,DualShock 4,Bluetooth,no hardware test,not-tested
+SDL3 bridge,DualSense,USB,no hardware test,not-tested
+SDL3 bridge,DualSense,Bluetooth,no hardware test,not-tested

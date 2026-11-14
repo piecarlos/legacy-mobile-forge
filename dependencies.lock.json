@@ -1,0 +1,64 @@
+{
+  "format": 1,
+  "packages": [
+    {
+      "id": "freej2me",
+      "url": "https://api.github.com/repos/TASEmulators/freej2me-plus/releases/assets/745139360",
+      "sha256": "74f12a8f62254a47d18941d719a929612f85326651a8ee51ae5451cdb1e473da",
+      "files": [
+        {
+          "from": "freej2me_plus.jar",
+          "to": "freej2me/freej2me_plus.jar",
+          "sha256": "d0349c99e66ca8885e1ebd640cb7f8fd363e5f92c07235598747125ff127be8f"
+        },
+        {
+          "from": "Win32Pad.exe",
+          "to": "freej2me/Win32Pad.exe",
+          "sha256": "4b0a6313f03c2e0925ff07245c6f54089735a34aa54421195d4c73c71138d20d"
+        }
+      ],
+      "headers": {
+        "Accept": "application/octet-stream",
+        "User-Agent": "LegacyMobileForge"
+      }
+    },
+    {
+      "id": "sdl3",
+      "url": "https://github.com/libsdl-org/SDL/releases/download/release-3.4.20/SDL3-3.4.20-win32-x64.zip",
+      "sha256": "368bed8b24e44ad9ea372990814f2343fcfb9e468abb7f8f4a3bc146c7304752",
+      "files": [
+        {
+          "from": "SDL3.dll",
+          "to": "controllers/SDL3.dll",
+          "sha256": "66844f10251cc1c10619ed5d8e4e3224f564900ee6d69ba87d63de782addae40"
+        },
+        {
+          "from": "LICENSE.txt",
+          "to": "controllers/SDL3-LICENSE.txt",
+          "sha256": "1c040b8271b37e5076359f8fd54240e371114112924d2df81ef87c7d6a1dfdfd"
+        }
+      ]
+    }
+  ],
+  "files": [
+    {
+      "url": "https://raw.githubusercontent.com/mdqinc/SDL_GameControllerDB/c0f11d40b91f57853ce9714c703e119d8243f91c/gamecontrollerdb.txt",
+      "to": "controllers/gamecontrollerdb.txt",
+      "sha256": "a2299ef257b68c62b9fcce39fc59b5fb3a5a7068214f766a96c21595b55a11c3"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/mdqinc/SDL_GameControllerDB/c0f11d40b91f57853ce9714c703e119d8243f91c/LICENSE",
+      "to": "controllers/DB-LICENSE.txt",
+      "sha256": "97f35b302b361680ec1e891e95d2d52097bb95abff361434916d99dc1305f127"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/TASEmulators/freej2me-plus/devel/LICENSE",
+      "to": "freej2me/LICENSE",
+      "sha256": "a58fa0122b525f1d9ae531781bfeead1977e9ac88d10fb570e8821d6e4232e85"
+    }
+  ],
+  "notes": [
+    "FreeJ2ME pinned to GitHub release asset ID 745139360 and SHA-256. Refuse missing or changed content; do not substitute another nightly silently.",
+    "SDL3 release 3.4.20; controller mappings pinned to a commit."
+  ]
+}
