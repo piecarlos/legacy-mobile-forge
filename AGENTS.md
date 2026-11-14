@@ -53,3 +53,7 @@ Jogos comerciais, saves pessoais, arquivos extraídos, credenciais, logs com cam
 ## Comunicação
 
 Agir com autonomia nas etapas autorizadas. Atualizações curtas, sem autoelogio, sem revisões recursivas ou investigação repetida. Dizer o que mudou, como foi testado e o que falta. Aprovação estética é do usuário. Não prometer recompilação nativa, compatibilidade universal ou suporte a controles sem evidência.
+
+## Publication transport and continuity
+
+Owner instruction (2026-11-14): never use the GitHub connector Create Blob operation. Prepare and publish through installed local Git. If the Work shell cannot reach GitHub, keep the reviewed local commit and give the owner the push command for an external PowerShell. Do not bypass the restriction. Read docs/RETOMADA.md before starting a new game or resuming this project, and keep it current with material decisions and verification results.
