@@ -2,7 +2,7 @@
 
 ## Objetivo
 
-Receber o caminho de um jogo antigo e produzir uma adaptação Windows simples, controlável e verificável, reaproveitando esta base. Leia README.md, docs/STATUS.md e o project.json do jogo antes de agir. Não recomece a infraestrutura já existente.
+Receber o caminho de um jogo antigo e produzir uma adaptação Windows simples, controlável e verificável, reaproveitando esta base. Leia README.md, docs/STATUS.md, docs/NATIVE-PORTING.md e o project.json do jogo antes de agir. Não recomece a infraestrutura já existente.
 
 Esta base NÃO é um recompilador universal. Java ME/J2ME usa bytecode e APIs móveis; SIS/SISX/Symbian nativo e N-Gage podem exigir outro runtime. Classifique pelo conteúdo antes de prometer execução.
 
@@ -18,6 +18,17 @@ Esta base NÃO é um recompilador universal. Java ME/J2ME usa bytecode e APIs m�
 8. Testar boot, entrada em partida, áudio, pausa, configurações, saída, saves, reconexão de controle e janela/tela cheia conforme a mudança. Não criar testes que apenas repetem a implementação, nem repetir verificações sem mudança pertinente.
 9. Registrar fatos em docs/compatibility-matrix.csv ou no caso: observado, teste automatizado, hardware testado, não testado, falhou. GameSir usado no Meteos não valida automaticamente Xbox, PlayStation nem outro jogo.
 10. Empacotar com jpackage/jlink e Java incluído somente após boot funcional. Verificar a partir de outra pasta e com dados isolados. Não sobrescrever releases que contenham progresso.
+
+## Próximo jogo: investigação de C++
+
+O usuário quer avaliar recompilação nativa no próximo jogo, preservando a rota Java como referência. Seguir docs/NATIVE-PORTING.md e preencher um plano por jogo com templates/GAME-PLAN.md em games/ID/PLAN.md. A entrada original e os resultados recuperados continuam privados.
+
+- Craft Anything permanece obrigatório na triagem. Arlecchino é candidato para renomear membros e combinar decompiladores; Enigma é candidato para mapear/renomear o código. Nenhum dos dois é um compilador Java-para-C++.
+- J2ME Recomp Universal é um candidato experimental para tradução bytecode/C++; não está integrado nem validado nesta base. Antes de executar, registrar revisão/licença, examinar os caminhos incompletos e provar uma fixture própria. Não substituir o backend atual automaticamente.
+- Separar análise, recuperação de Java e tradução nativa. Compilar Java recuperado ou emitir C++ não prova equivalência nem um jogo jogável.
+- Primeiro buscar uma partida mínima funcional; depois adaptar apresentação, menus, idiomas, controle e logs para a rota nativa. As classes Swing atuais não se tornam menus C++ automaticamente.
+- Registrar bloqueadores concretos e uma lista curta de correções. Não entrar em ciclos de investigação/revisão, instalar SDKs grandes ou acionar outros agentes por conta própria. Se a rota nativa não avançar, entregar a adaptação Java funcional e deixar a experiência C++ separada.
+- Usar romdev apenas como referência para futuros alvos de console documentados. Não encaminhar JARs J2ME ou SIS/SISX para essa ferramenta como se fossem ROMs compatíveis.
 
 ## Controles
 

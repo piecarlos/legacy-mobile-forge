@@ -23,7 +23,9 @@ Build requirements: Windows x64, PowerShell and JDK 21+. Generated portable pack
 
 ## Another game / Work
 
-Open this project in Work and ask: “Read AGENTS.md. Adapt the game at C:\Games\game.jar using Craft Anything and the existing engine. Preserve the input and validate the result.”
+Open this project in Work and ask: “Read AGENTS.md, docs/STATUS.md and docs/NATIVE-PORTING.md. The next game is at C:\Games\game.jar. Use Craft Anything, preserve the original, establish a working Java reference and evaluate a native C++ route. Use Arlecchino/Enigma only where useful and record actual blockers.”
+
+See the [native investigation workflow](docs/NATIVE-PORTING.md) and [per-game plan template](templates/GAME-PLAN.md). **Arlecchino and Enigma help recover/understand Java; they are not Java-to-C++ compilers.** A native translator remains an unvalidated candidate. Copy the plan into the private case and preserve the current Java route while testing it. No native backend is installed or integrated by these instructions.
 
 ```powershell
 .\scripts\New-GameProject.ps1 -GamePath 'C:\Games\game.jar' -Id my-game -Title 'My Game' -Width 240 -Height 320
@@ -46,4 +48,4 @@ Own code: GPL-3.0-or-later. See [third-party notices](THIRD-PARTY.md). No affili
 
 ## Português
 
-Base para adaptar jogos Java ME no Windows, com menus, controles, idiomas e logs locais. **Não é um recompilador universal.** Para Meteos, use exclusivamente a variante 1.0.4 de 240×320 com o hash acima. O jogo não acompanha o repositório. Veja [instruções do Meteos](ports/meteos/README.md). A prévia pública fornece fontes e build; o resultado gerado com seu JAR deve permanecer privado.
+Base para adaptar jogos Java ME no Windows, com menus, controles, idiomas e logs locais. **Não é um recompilador universal.** Para Meteos, use exclusivamente a variante 1.0.4 de 240×320 com o hash acima. O jogo não acompanha o repositório. O launcher pronto está em Releases e pede seu JAR na primeira execução. Veja [instruções do Meteos](ports/meteos/README.md). Para o próximo jogo, siga o [roteiro de investigação nativa](docs/NATIVE-PORTING.md); Arlecchino/Enigma são auxiliares de análise, e a rota C++ ainda precisa ser demonstrada.
