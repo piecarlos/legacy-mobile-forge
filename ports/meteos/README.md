@@ -18,7 +18,7 @@ Supply your own JAR. Filename alone is insufficient: renamed or different handse
 
 ## Build your portable copy
 
-For a prebuilt game-free launcher, use [Releases](https://github.com/piecarlos/legacy-mobile-forge/releases/tag/v0.2.1-preview.1). Extract the ZIP, open MeteosLauncher.exe and select your original JAR. Java is included; no compiler is needed to play.
+For a prebuilt game-free launcher, use [Releases](https://github.com/piecarlos/legacy-mobile-forge/releases/tag/v0.2.2-preview.1). Extract the ZIP, open MeteosLauncher.exe and select your original JAR. Java is included; no compiler is needed to play.
 
 Building from source requires Windows x64, PowerShell and **JDK 21+**. Craft Anything is used for additional triage when installed. From the repository root:
 

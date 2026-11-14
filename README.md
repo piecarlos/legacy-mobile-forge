@@ -10,7 +10,7 @@ Windows tooling for adapting Java ME games with reusable video settings, control
 
 See [Meteos setup and required game version](ports/meteos/README.md). The supported input is **MIDlet 1.0.4, 240×320**, 303,829 bytes, SHA-256 `5756d421e3b878d124fb9c8453a6738ecb99ff6425679668ab2cb6e7b6df5021`. Supply your own original JAR. Other variants are not validated.
 
-Download the [game-free Windows launcher](https://github.com/piecarlos/legacy-mobile-forge/releases/tag/v0.2.1-preview.1), extract the ZIP and open **MeteosLauncher.exe**. Java is included. On the first launch, select your original JAR; the launcher verifies and copies it locally. No compiler is needed to play, and no game is included or downloaded. Normal rendering is recommended; ReShade is optional and experimental.
+Download the [game-free Windows launcher](https://github.com/piecarlos/legacy-mobile-forge/releases/tag/v0.2.2-preview.1), extract the ZIP and open **MeteosLauncher.exe**. The **native C importer** uses the Windows file picker and verifies/copies your JAR before starting Java. Java is included for the game backend; no Python, compiler or separate Java installation is needed to play. No game is included or downloaded. Normal rendering is recommended; ReShade is optional and experimental.
 
 The commands below are for developers building from source:
 
@@ -36,7 +36,13 @@ Each game needs validation of handset APIs, screen size, input, sound and saves.
 
 ## Feedback
 
-Settings → General opens the local log folder. No automatic telemetry or GitHub upload. Report steps, build, normal/ReShade, controller/connection and approximate time in an issue; attach the latest reviewed session log. Never attach the commercial JAR, personal saves or credentials.
+Settings → General opens the local log folder. No automatic telemetry or GitHub upload. Import/bootstrap logs use `launcher.log`; game logs use `session-*.log`. Report steps, build, normal/ReShade, controller/connection and approximate time in an issue; attach the relevant reviewed log. Never attach the commercial JAR, personal saves or credentials.
+
+## Native frontend and optional romdev bridge
+
+The [native Windows frontend](docs/NATIVE-LAUNCHER.md) is reusable through a per-game INI profile. It is separate from the execution backend; a C importer does not turn Java ME game logic into native C++.
+
+The [romdev discovery bridge](docs/ROMDEV.md) can inspect a user-started local tool server for documented console targets. It does not install romdev, upload games, execute ROMs or provide a J2ME/Symbian backend. Craft Anything and the existing Java route remain the current game pipeline.
 
 ## Public versus private
 

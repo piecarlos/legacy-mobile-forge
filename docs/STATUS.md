@@ -1,6 +1,6 @@
 # Estado do projeto
 
-Base de adaptação com launcher público 0.2.1-preview.1, não recompilador universal. Próximo trabalho: novo jogo com referência Java e investigação nativa separada; ler NATIVE-PORTING.md.
+Base de adaptação; launcher 0.2.2 em preparação com importador nativo C. Não é um recompilador universal. Próximo trabalho: novo jogo com referência Java e investigação nativa separada; ler NATIVE-PORTING.md.
 
 ## Implementado
 
@@ -54,3 +54,9 @@ These import checks do not replace extended gameplay/controller testing. Local f
 ## Next-game preparation — native route
 
 AGENTS.md, NATIVE-PORTING.md and templates/GAME-PLAN.md now define a staged investigation: Craft triage, original Java reference, optional source recovery with Arlecchino/Enigma, an original fixture for a pinned native translator, then one playable game slice. Menus/controllers/languages/logs are integrated into the native route only after that slice works. This is workflow preparation, not an installed or functioning C++ recompilation backend. The new game's Windows path is still needed to start a case. romdev is recorded for future supported console projects; Blogger remains last.
+
+## 0.2.2-preview.1 — native importer and optional discovery bridge
+
+Importer/bootstrap moved to engine/native/GameLauncher.c: Windows TaskDialog/IFileOpenDialog, native SHA-256 validation and safe copy, per-game INI profile, saved/system language and local rotating launcher logs. The Java backend has no file chooser and starts only after native validation. No Python/CLR dependency is added to the player package. Game execution remains FreeJ2ME/Java.
+
+Local checks passed for archive contents, invalid/correct JAR import, Unicode/space-containing source paths, valid-cache preservation and IFileOpenDialog initialization. Import/validation ran with javaw renamed/unavailable. The probe configures the native dialog object without displaying it; visual appearance needs desktop review. The optional romdev adapter passed its mock-server discovery/local-endpoint/rejection checks. The real localhost probe found no server running. No romdev runtime or game execution was integrated.

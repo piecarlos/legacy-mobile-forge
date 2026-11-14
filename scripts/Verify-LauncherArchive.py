@@ -5,6 +5,8 @@ import pathlib
 import subprocess
 import tempfile
 import zipfile
+import io
+import struct
 
 EXPECTED = "5756d421e3b878d124fb9c8453a6738ecb99ff6425679668ab2cb6e7b6df5021"
 
@@ -24,6 +26,17 @@ def main():
         assert not any("/game/" in n or "/saves/" in n or n.endswith((".log", "bezel.png", "d3d9.dll")) for n in names), "Private content in public archive"
         assert not any(hashlib.sha256(archive.read(n)).hexdigest() == EXPECTED for n in archive.namelist() if not n.endswith("/")), "Original game bytes found"
         print("PASS: ZIP integrity, launcher present, no original JAR/saves/logs/border/ReShade DLL")
+        if any(n.endswith("/app/launcher.ini") for n in names):
+            executable = archive.read(next(n for n in archive.namelist() if n.lower().endswith("/meteoslauncher.exe")))
+            pe = struct.unpack_from("<I", executable, 0x3C)[0]
+            assert executable[pe:pe + 4] == b"PE\0\0"
+            assert struct.unpack_from("<H", executable, pe + 4)[0] == 0x8664, "Native frontend is not x64"
+            optional = pe + 24
+            assert struct.unpack_from("<H", executable, optional)[0] == 0x20B
+            assert struct.unpack_from("<II", executable, optional + 112 + 14 * 8) == (0, 0), "Frontend depends on CLR"
+            with zipfile.ZipFile(io.BytesIO(archive.read(next(n for n in archive.namelist() if n.endswith("/app/meteos-preview.jar"))))) as launcher:
+                assert not any(b"javax/swing/JFileChooser" in launcher.read(n) for n in launcher.namelist() if n.endswith(".class")), "Java file picker reintroduced"
+            print("PASS: native x64 PE, no CLR, no Swing file picker in launcher classes")
         if args.game is None:
             return
         assert hashlib.sha256(args.game.read_bytes()).hexdigest() == EXPECTED
@@ -37,6 +50,7 @@ def main():
             exe = next(root.rglob("MeteosLauncher.exe"))
             app = exe.parent / "app"
             target = app / "game" / "meteos.jar"
+            native = (app / "launcher.ini").is_file()
 
             def run(arguments, expected):
                 process = subprocess.Popen([str(exe), *arguments], cwd=root, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
@@ -49,18 +63,32 @@ def main():
                 if process.returncode != expected:
                     raise AssertionError(f"Unexpected exit {process.returncode}: {stdout}\n{stderr}")
 
+            if native:
+                # Import/validation must work even if Java cannot be started.
+                javaw = exe.parent / "runtime/bin/javaw.exe"
+                hidden_javaw = javaw.with_suffix(".native-test")
+                assert javaw.resolve().is_relative_to(exe.parent.resolve())
+                javaw.rename(hidden_javaw)
             run(["--validate"], 1)
             assert not target.exists(), "Game created without import"
             if args.wrong_jar:
                 run(["--import", str(args.wrong_jar), "--import-only"], 1)
                 assert not target.exists(), "Wrong JAR accepted"
-            run(["--import", str(args.game), "--import-only"], 0)
+            unicode_source = root / "Meu jogo ç 测试.jar"
+            unicode_source.write_bytes(args.game.read_bytes())
+            run(["--import", str(unicode_source), "--import-only"], 0)
             assert hashlib.sha256(target.read_bytes()).hexdigest() == EXPECTED
             if args.wrong_jar:
                 run(["--import", str(args.wrong_jar), "--import-only"], 1)
                 assert hashlib.sha256(target.read_bytes()).hexdigest() == EXPECTED, "Valid cached game overwritten"
             run(["--validate"], 0)
-            assert list((app / "logs").glob("session-*.log"))
+            assert list((app / "logs").glob("session-*.log")) or (app / "logs/launcher.log").is_file()
+            if native:
+                run(["--probe-dialog"], 0)
+                hidden_javaw.rename(javaw)
+                print("PASS: native import/validation with Java launcher unavailable; Windows IFileOpenDialog API probe")
+                run(["--backend-validate"], 0)
+                print("PASS: native-to-Java backend handoff and independent backend JAR validation")
             print("PASS: fresh extraction, missing/wrong JAR rejection, valid import, cached validation, retained game and local logs")
             if args.play_smoke:
                 run(["--smoke"], 0)

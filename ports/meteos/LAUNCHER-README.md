@@ -1,8 +1,8 @@
-# Meteos Launcher 0.2.1 — Windows x64 preview
+# Meteos Launcher 0.2.2 — Windows x64 preview
 
 1. Extract the entire ZIP into a writable folder. Do not run it from inside the ZIP.
 2. Open **MeteosLauncher.exe**. Java is included; no JDK or compiler is needed to play.
-3. Select your original **Meteos Astro Blocks 1.0.4 / 240×320** JAR. The launcher verifies and copies it locally, then starts the game. Later launches reuse that verified copy.
+3. The **native C launcher** opens the Windows file picker. Select your original **Meteos Astro Blocks 1.0.4 / 240×320** JAR. It verifies and copies the file before starting Java. Later launches reuse that verified copy.
 
 **The game is not included. No game download occurs.**
 
@@ -12,10 +12,10 @@ This is a Java ME runtime adaptation, not native C++ recompilation. The first pu
 
 Select/Back or F2 opens settings. D-pad/arrows navigate, left/right changes values, A/Enter confirms, B/E goes back; Start/Esc opens the original pause menu. F11 toggles borderless fullscreen. General changes the interface language (system/English/pt-BR) and opens logs. The original game text is unchanged.
 
-Local data: `app/game/meteos.jar` (your imported game), `app/saves`, `app/video.properties`, `app/logs`. Back up saves/settings before replacing the folder. No automatic telemetry. Close the game and attach the latest reviewed `session-*.log` with steps/time to <https://github.com/piecarlos/legacy-mobile-forge/issues>. Do not attach the JAR or personal saves.
+Local data: `app/game/meteos.jar` (your imported game), `app/saves`, `app/video.properties`, `app/logs`. Import/bootstrap logs use `launcher.log`; gameplay logs use `session-*.log`. Back up saves/settings before replacing the folder. No automatic telemetry. Close the game and attach the relevant reviewed logs with steps/time to <https://github.com/piecarlos/legacy-mobile-forge/issues>. Do not attach the JAR or personal saves.
 
 ## Português
 
-Extraia o ZIP inteiro e execute **MeteosLauncher.exe**. Na primeira execução, selecione seu JAR original **1.0.4, 240×320**, com tamanho e hash acima. O launcher valida e copia o jogo; depois disso não precisa selecionar novamente. Java já acompanha o pacote. Não é necessário compilar nada para jogar.
+Extraia o ZIP inteiro e execute **MeteosLauncher.exe**. O importador é nativo em C e usa a janela de arquivos do Windows. Na primeira execução, selecione seu JAR original **1.0.4, 240×320**, com tamanho e hash acima. Ele valida e copia o jogo antes de iniciar Java; depois disso não precisa selecionar novamente. Java continua incluído para executar o jogo. Não é necessário instalar Python nem compilar nada para jogar.
 
 O jogo não acompanha o ZIP e não é baixado automaticamente. Select/F2 abre configurações; a aba Geral seleciona o idioma e abre a pasta de logs. Preserve `app/saves` e `app/video.properties` ao atualizar. Esta é uma prévia para testes; compatibilidade com outros computadores e controles ainda precisa de relatos reais.
