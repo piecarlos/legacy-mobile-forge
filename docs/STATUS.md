@@ -34,3 +34,7 @@ Consulte compatibility-matrix.csv para distinguir possibilidade, teste automatiz
 ## Correção 0.1.1 — retorno das configurações
 
 A troca janela/tela cheia mantém o mesmo peer nativo, evitando recriar o alvo gráfico do ReShade. Redesenho e foco são solicitados ao fechar o menu; buffers dinâmicos do jogo não usam cache acelerado de imagem. Testes de geometria, preferências, menu e ciclos de tela executados; o reteste visual no hardware do usuário permanece necessário.
+
+## 0.1.2 — presentation, language and local test logs
+
+English and pt-BR launcher UI; system locale by default, English fallback, manual selection under General. Original MIDlet text is unchanged. Local session logs capture lifecycle/settings/errors/status, retain ten sessions up to 2 MiB each, redact known user/app paths and make no network requests. General opens the log folder. No automatic GitHub submission. Double buffering restored; complete repaint enabled only for explicit ReShade experiments. Compile check passed for the generic engine; localized menu/persistence/log checks passed on Meteos. Extended physical and flicker testing remains pending. Blogger is last, after stability, clean publication and verified recompiler research.

@@ -31,3 +31,7 @@ Não publicar DLL, instalador ou shaders baixados. O fonte próprio do preset fi
 engine/src/ReshadeBootstrap.java oferece uma entrada opcional e desacoplada. A base normal continua iniciando MobileGameDesktop. Numa cópia de teste, iniciar ReshadeBootstrap com `-Dforge.reshade.library=CAMINHO_ABSOLUTO_DA_DLL`, `-Dsun.java2d.d3d=true` e `--enable-native-access=ALL-UNNAMED` no Java recente. O classpath deve incluir o JAR do launcher e do FreeJ2ME. `forge.entryClass` permite usar outro launcher compatível, sem editar a classe bootstrap.
 
 Tratar presença de log, criação de runtime, compilação do shader, comparação visual e encerramento como verificações distintas. Não basta o processo retornar código zero: o teste OpenGL teve falha nativa mesmo retornando zero neste ambiente.
+
+## Presentation fix (0.1.2)
+
+Restore Swing double buffering and request a complete root repaint every 16 ms only when forge.reshade.library is set. Keep the same native peer on fullscreen changes. This avoids presenting individual clear/draw stages and keeps Presents flowing on static/paused screens. Initial visual checks displayed the HOME panel, settings and resumed game; sustained user testing remains pending. ReShade stays experimental.

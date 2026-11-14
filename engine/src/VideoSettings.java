@@ -11,6 +11,8 @@ public final class VideoSettings {
     static final String[] RESOLUTIONS = {"Compacta — 960 × 540", "Full HD — 1920 × 1080", "QHD — 2560 × 1440", "3K — 2880 × 1620", "4K UHD — 3840 × 2160"};
     static final int[][] SIZES = {{960,540},{1920,1080},{2560,1440},{2880,1620},{3840,2160}};
     final Path file;
+    String language="auto";
+    JMenu menu; JMenuItem settings,toggle;
     int resolution;
     boolean integerScale = true, smooth, fullscreen;
     boolean pixelArt; final PixelArtFilter pixelFilter=new PixelArtFilter(); boolean bezel = true; final SpaceBezel artwork = new SpaceBezel();
@@ -23,18 +25,20 @@ public final class VideoSettings {
     VideoSettings(Path file) { this.file=file; load(); }
     void load() {
         Properties p = new Properties();
-        if (!Files.exists(file)) return;
+        if (!Files.exists(file)) {UiText.select(language);return;}
         try (InputStream in=Files.newInputStream(file)) {
-            p.load(in);
+            p.load(in);language=p.getProperty("language","auto");UiText.select(language);
             resolution=Math.max(0,Math.min(SIZES.length-1,Integer.parseInt(p.getProperty("resolution","0"))));
             integerScale=Boolean.parseBoolean(p.getProperty("integerScale","true"));
             smooth=Boolean.parseBoolean(p.getProperty("smooth","false"));pixelArt=Boolean.parseBoolean(p.getProperty("pixelArt","false"));if(pixelArt)smooth=false;
             fullscreen=Boolean.parseBoolean(p.getProperty("fullscreen","false")); bezel=Boolean.parseBoolean(p.getProperty("bezel","true"));
-        } catch (IOException | IllegalArgumentException ex) { notice="Não foi possível ler as preferências; usando valores disponíveis."; }
+        } catch (IOException | IllegalArgumentException ex) { notice=UiText.t("Não foi possível ler as preferências; usando valores disponíveis."); }
     }
     void save() {
         Properties p=new Properties();
+        p.setProperty("language",language);
         p.setProperty("resolution",String.valueOf(resolution));
+        SessionLog.event("settings.save","language="+language+" resolution="+resolution+" fullscreen="+fullscreen+" integer="+integerScale+" smooth="+smooth+" scale2x="+pixelArt+" border="+bezel);
         p.setProperty("integerScale",String.valueOf(integerScale));
         p.setProperty("smooth",String.valueOf(smooth));p.setProperty("pixelArt",String.valueOf(pixelArt));
         p.setProperty("fullscreen",String.valueOf(fullscreen));p.setProperty("bezel",String.valueOf(bezel));
@@ -43,7 +47,7 @@ public final class VideoSettings {
             Path tmp=Files.createTempFile(parent,"video-",".tmp");
             try(OutputStream out=Files.newOutputStream(tmp)){p.store(out,"Legacy Mobile Forge - video");}
             Files.move(tmp,file.toAbsolutePath(),StandardCopyOption.REPLACE_EXISTING);
-        } catch(IOException ex){ notice="Não foi possível salvar as preferências: "+ex.getMessage(); }
+        } catch(IOException ex){ notice=UiText.t("Não foi possível salvar as preferências: ")+ex.getMessage(); }
     }
     static Rectangle viewport(int width,int height,boolean integer) {
         double scale=Math.min(width/(double)GameProfile.width,height/(double)GameProfile.height);
@@ -62,9 +66,9 @@ public final class VideoSettings {
     }
     void attach(JFrame frame,JPanel canvas) {
         this.frame=frame;this.canvas=canvas;
-        bar=new JMenuBar();JMenu menu=new JMenu("Vídeo");bar.add(menu);
-        JMenuItem settings=new JMenuItem("Configurações…  F2");settings.addActionListener(e->showDialog());menu.add(settings);
-        JMenuItem toggle=new JMenuItem("Janela / tela cheia  F11");toggle.addActionListener(e->toggleFullscreen());menu.add(toggle);
+        bar=new JMenuBar();menu=new JMenu(UiText.t("Vídeo"));bar.add(menu);
+        settings=new JMenuItem(UiText.t("Configurações.  F2"));settings.addActionListener(e->showDialog());menu.add(settings);
+        toggle=new JMenuItem(UiText.t("Janela / tela cheia  F11"));toggle.addActionListener(e->toggleFullscreen());menu.add(toggle);
         frame.setJMenuBar(bar);
         bind("F2","video-settings",this::showDialog);
         bind("F11","video-fullscreen",this::toggleFullscreen);
@@ -72,6 +76,7 @@ public final class VideoSettings {
         frame.addWindowListener(new WindowAdapter(){public void windowClosing(WindowEvent e){save();}});
         applySize();
     }
+    void refreshLanguage(){if(menu!=null){menu.setText(UiText.t("Vídeo"));settings.setText(UiText.t("Configurações.  F2"));toggle.setText(UiText.t("Janela / tela cheia  F11"));}}
     void bind(String key,String name,Runnable action) {
         frame.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(key),name);
         frame.getRootPane().getActionMap().put(name,new AbstractAction(){public void actionPerformed(ActionEvent e){action.run();}});
