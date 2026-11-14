@@ -1,6 +1,6 @@
 # Estado do projeto
 
-Base inicial de adaptação, não recompilador universal.
+Base de adaptação com launcher público 0.2.1-preview.1, não recompilador universal. Próximo trabalho: novo jogo com referência Java e investigação nativa separada; ler NATIVE-PORTING.md.
 
 ## Implementado
 
@@ -18,7 +18,7 @@ Base inicial de adaptação, não recompilador universal.
 - Remapeamento de ações por jogo, wizard de botões e backend Symbian executável.
 - Migração dos jogos existentes para esta base somente após teste comparativo. O Meteos portátil estável não foi substituído.
 - ReShade precisa de avaliação visual, sessões prolongadas e teste de troca de tela/menu.
-- Publicação inicial via conector GitHub autenticado. Não publicar binários e conteúdo comercial por acidente.
+- Ampliar a investigação nativa no próximo jogo, com versão fixada das ferramentas e uma fixture própria antes do jogo comercial. Arlecchino/Enigma e o tradutor C++ ainda não estão integrados.
 
 Consulte compatibility-matrix.csv para distinguir possibilidade, teste automatizado e hardware efetivamente validado.
 
@@ -42,3 +42,15 @@ English and pt-BR launcher UI; system locale by default, English fallback, manua
 ## 0.2.0-preview.1 — public source preview
 
 Meteos adapter separated under ports/meteos. Build script verifies MIDlet 1.0.4 / 240x320 JAR size and SHA-256 before creating output, runs Craft Anything, verifies the pinned backend and builds a portable copy. Wrong fixture JAR rejected before output creation. Full build passed on Windows PowerShell 5.1; copied portable package boot/settings/cursor/helper/exit/log smoke passed from another directory. Public source build uses the locked newer backend; it is distinct from the earlier private 1.0.2 packages. GameSir and ReShade extended feedback still comes from user testing. Reports use local logs and a bilingual GitHub issue form.
+
+## 0.2.1-preview.1 — game-free public launcher
+
+Published: https://github.com/piecarlos/legacy-mobile-forge/releases/tag/v0.2.1-preview.1 . Windows x64 ZIP includes Java and asks for the user's original JAR on first launch. Requires Meteos MIDlet 1.0.4 / 240x320, 303829 bytes and the documented SHA-256. It retains the verified local copy for later launches. No original game, saves, logs, illustrated border or ReShade DLL is shipped.
+
+GitHub Actions run 43553190268 completed build, archive audit and prerelease publication successfully. The actual published ZIP was downloaded and verified against SHA-256 `a444bb52adae9c99bdc3f13463fe347c1c9a2042047a74061ca1ccbd37ba1904`. Fresh extraction, missing/wrong JAR rejection, correct import, cached validation, preservation of a valid game after an invalid replacement attempt, and local logs passed against that downloaded artifact. The CI package uses Temurin Java 21; a separate FreeJ2ME corresponding-source archive is attached to the release.
+
+These import checks do not replace extended gameplay/controller testing. Local full-play smoke in the current restricted tool environment was blocked by Windows registry access needed by Java's synthesizer; no product workaround was introduced for that sandbox restriction. Earlier adapter boot/menu/exit and user gameplay evidence remain documented above.
+
+## Next-game preparation — native route
+
+AGENTS.md, NATIVE-PORTING.md and templates/GAME-PLAN.md now define a staged investigation: Craft triage, original Java reference, optional source recovery with Arlecchino/Enigma, an original fixture for a pinned native translator, then one playable game slice. Menus/controllers/languages/logs are integrated into the native route only after that slice works. This is workflow preparation, not an installed or functioning C++ recompilation backend. The new game's Windows path is still needed to start a case. romdev is recorded for future supported console projects; Blogger remains last.

@@ -11,6 +11,15 @@
 
 Versões e hashes locais estão em dependencies.lock.json. Não transformar cobertura declarada por uma biblioteca em afirmação de teste físico deste projeto.
 
+## J2ME source recovery and native candidates
+
+- Arlecchino: https://github.com/wehrwolfmann/arlecchino — candidate for member renaming, multiple decompilers and source recovery. Documentation reviewed; not locally installed or validated.
+- Enigma: https://github.com/FabricMC/Enigma — Java mappings/deobfuscation tool, not a C++ translator. Documentation reviewed; not locally integrated.
+- J2ME Recomp Universal: https://github.com/denisfox3554/J2me-recomp-universial — repository contains an experimental bytecode/C++ pipeline and native runtime. No local compiler build or complete game validation has been performed here. Do not treat the README as proof of universal compatibility.
+- The Blink J2ME Game Recompiler page is a promotional reference, not a verified toolchain dependency.
+
+Use docs/NATIVE-PORTING.md and templates/GAME-PLAN.md. Pin actual revisions and licenses before experiments; preserve the original JAR and working Java reference. Source recovery can be skipped when the chosen native tool operates on original bytecode and decompilation would not help.
+
 ## romdev — candidate for future console projects
 
 - Repository: https://github.com/monteslu/romdev
