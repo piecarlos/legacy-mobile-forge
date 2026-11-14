@@ -12,7 +12,7 @@ final class SpaceBezel {
   if(cache!=null&&cache.getWidth()==width&&cache.getHeight()==height&&game.equals(viewport))return cache;
   cache=new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);viewport=new Rectangle(game);builds++;
   Graphics2D g=cache.createGraphics();
-  if(!attempted){attempted=true;try{if(MobileGameDesktop.assetFile("assets/bezel.png").isFile())illustration=javax.imageio.ImageIO.read(MobileGameDesktop.assetFile("assets/bezel.png"));}catch(java.io.IOException ex){System.err.println("Bezel: "+ex.getMessage());}}
+  if(!attempted){attempted=true;try{if(MobileGameDesktop.assetFile("assets/bezel.png").isFile())if(MobileGameDesktop.assetFile("assets/bezel.png").isFile())illustration=javax.imageio.ImageIO.read(MobileGameDesktop.assetFile("assets/bezel.png"));}catch(java.io.IOException ex){System.err.println("Bezel: "+ex.getMessage());}}
   if(illustration!=null){g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BICUBIC);int sw=illustration.getWidth(),sh=illustration.getHeight();g.drawImage(illustration,0,0,width,height,null);g.drawImage(illustration,0,0,game.x,height,0,0,sw/3,sh,null);g.drawImage(illustration,game.x+game.width,0,width,height,sw*2/3,0,sw,sh,null);g.dispose();return cache;}
   g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
   g.setPaint(new GradientPaint(0,0,new Color(7,14,30),width,height,new Color(18,10,32)));

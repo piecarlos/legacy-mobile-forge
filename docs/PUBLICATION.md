@@ -1,9 +1,9 @@
-# Publicação no GitHub
+# Publication
 
-Destino solicitado: conta piecarlos. Nome proposto: legacy-mobile-forge. Código-base limpo, sem jogos comerciais, saves, credenciais, arte de jogos ou DLLs ReShade.
+Public repository: https://github.com/piecarlos/legacy-mobile-forge
 
-Usar Git/CLI autenticado, sem operar navegador. Git Credential Manager foi consultado sem interatividade; não retornou credencial nesta sessão. SSH em modo não interativo também não autenticou. Não pedir tokens em texto no chat e não colocá-los em URL, remoto Git, script ou arquivo.
+Initial testing preview: source and build tooling, with exact Meteos 1.0.4 / 240x320 JAR requirements. No commercial game, personal saves, extracted assets, private portable packages, ReShade DLLs or credentials are published.
 
-Antes do envio: executar a demonstração própria, revisar fontes e scripts, conferir `git ls-files`, licença e avisos. Dependências binárias e experimentos são ignorados. Publicar apenas após autenticação funcional.
+Repository creation used the authenticated GitHub UI once; source delivery uses the GitHub connector API. Local Git/CLI credentials are not required for that route. Future updates should prefer the connector or authenticated CLI, not browser file uploads.
 
-A inclusão de um caso privado em games/ não autoriza publicar seu JAR ou suas imagens. Não enviar o pacote privado do Meteos como release pública.
+Before publishing: inspect the effective tracked tree, run the relevant small checks, and keep generated game builds private. See ports/meteos/README.md and THIRD-PARTY.md.

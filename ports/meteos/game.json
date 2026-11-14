@@ -1,0 +1,12 @@
+{
+  "title": "Meteos - Astro Blocks",
+  "midlet_version": "1.0.4",
+  "logical_resolution": "240x320",
+  "reference_filename": "meteos_astro_blocks_240x320_171711.jar",
+  "size_bytes": 303829,
+  "sha256": "5756d421e3b878d124fb9c8453a6738ecb99ff6425679668ab2cb6e7b6df5021",
+  "midlet_class": "GloftMTOS",
+  "cldc": "1.0",
+  "midp": "2.0",
+  "distribution": "User supplies the original JAR. No game data is distributed."
+}

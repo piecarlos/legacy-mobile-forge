@@ -18,7 +18,7 @@ Base inicial de adaptação, não recompilador universal.
 - Remapeamento de ações por jogo, wizard de botões e backend Symbian executável.
 - Migração dos jogos existentes para esta base somente após teste comparativo. O Meteos portátil estável não foi substituído.
 - ReShade precisa de avaliação visual, sessões prolongadas e teste de troca de tela/menu.
-- Autenticação GitHub nesta sessão para envio ao destino solicitado. Não publicar binários e conteúdo comercial por acidente.
+- Publicação inicial via conector GitHub autenticado. Não publicar binários e conteúdo comercial por acidente.
 
 Consulte compatibility-matrix.csv para distinguir possibilidade, teste automatizado e hardware efetivamente validado.
 
@@ -38,3 +38,7 @@ A troca janela/tela cheia mantém o mesmo peer nativo, evitando recriar o alvo g
 ## 0.1.2 — presentation, language and local test logs
 
 English and pt-BR launcher UI; system locale by default, English fallback, manual selection under General. Original MIDlet text is unchanged. Local session logs capture lifecycle/settings/errors/status, retain ten sessions up to 2 MiB each, redact known user/app paths and make no network requests. General opens the log folder. No automatic GitHub submission. Double buffering restored; complete repaint enabled only for explicit ReShade experiments. Compile check passed for the generic engine; localized menu/persistence/log checks passed on Meteos. Extended physical and flicker testing remains pending. Blogger is last, after stability, clean publication and verified recompiler research.
+
+## 0.2.0-preview.1 — public source preview
+
+Meteos adapter separated under ports/meteos. Build script verifies MIDlet 1.0.4 / 240x320 JAR size and SHA-256 before creating output, runs Craft Anything, verifies the pinned backend and builds a portable copy. Wrong fixture JAR rejected before output creation. Full build passed on Windows PowerShell 5.1; copied portable package boot/settings/cursor/helper/exit/log smoke passed from another directory. Public source build uses the locked newer backend; it is distinct from the earlier private 1.0.2 packages. GameSir and ReShade extended feedback still comes from user testing. Reports use local logs and a bilingual GitHub issue form.

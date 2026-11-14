@@ -1,46 +1,43 @@
-# Legacy Mobile Forge
+# Legacy Mobile Forge — testing preview
 
-Base de trabalho para trazer jogos Java ME e investigar jogos Symbian no Windows, com menus, controles, filtros e empacotamento reaproveitáveis.
+Windows tooling for adapting Java ME games with reusable video settings, controller input, English/pt-BR UI, local logs and portable packaging. The implemented backend runs J2ME JARs using FreeJ2ME-Plus. **This is not a universal or native C++ recompiler.** Native Symbian/SIS support is a separate investigation.
 
-**Não é um recompilador universal.** O backend implementado nesta primeira versão executa JARs J2ME sobre FreeJ2ME-Plus. Symbian nativo é uma trilha de investigação separada.
+## Meteos Astro Blocks
 
-## Para começar no Work
+See [Meteos setup and required game version](ports/meteos/README.md). The supported input is **MIDlet 1.0.4, 240×320**, 303,829 bytes, SHA-256 `5756d421e3b878d124fb9c8453a6738ecb99ff6425679668ab2cb6e7b6df5021`. Supply your own original JAR. Other variants are not validated.
 
-Abra esta pasta como projeto e peça:
-
-> Leia AGENTS.md. Quero adaptar o jogo em C:\caminho\meu-jogo.jar. Identifique a versão com Craft Anything e reutilize o motor, os menus e os controles desta base. Preserve o arquivo original e trabalhe até obter um teste funcional.
-
-Se existir um caso em games/, continue nele em vez de recriar.
-
-## Ferramentas prontas
-
-- `scripts/New-GameProject.ps1`: copia a entrada para um caso privado, calcula hash, classifica extensão e chama Craft Anything.
-- `scripts/Build-GameProject.ps1`: compila o launcher genérico e pode gerar um app Windows portátil.
-- `scripts/Setup-Dependencies.ps1`: prepara dependências verificadas; requer JDK 21+ e Windows x64 para empacotar.
-- `engine/src`: apresentação, configurações via controle, Scale2x e execução J2ME.
-- `engine/native/SdlPadBridge.cs`: SDL3 para entrada normalizada e conexão/desconexão.
-- `docs`: estado, compatibilidade, referências e roteiro de publicação.
+The first public release contains source/build tooling, not a prebuilt commercial game. Normal rendering is recommended; ReShade is optional and experimental.
 
 ```powershell
 .\scripts\Setup-Dependencies.ps1
-.\scripts\New-GameProject.ps1 -GamePath 'C:\Jogos\MeuJogo.jar' -Id meu-jogo -Title 'Meu Jogo' -Width 240 -Height 320
-.\scripts\Build-GameProject.ps1 -ProjectPath .\games\meu-jogo -Package
+.\scripts\Build-MeteosPreview.ps1 -GamePath 'C:\Games\meteos_astro_blocks_240x320_171711.jar' -Package
 ```
 
-Craft Anything é detectado em Program Files; `-CraftPath` aceita outro local. Java pode ser indicado com `-JdkPath` na compilação.
+Build requirements: Windows x64, PowerShell and JDK 21+. Generated portable packages include Java. Dependencies are verified against `dependencies.lock.json`; do not swap runtime snapshots between builds. Craft Anything supplies deeper game triage when installed.
 
-## O que precisa ser validado em cada jogo
+## Another game / Work
 
-Dimensões, APIs do celular, teclas, som, gravação de progresso, pausa e game over. A base reutiliza infraestrutura, não garante que todo JAR rode sem ajustes. Profile.properties seleciona resolução lógica, título, backend e slot do controle.
+Open this project in Work and ask: “Read AGENTS.md. Adapt the game at C:\Games\game.jar using Craft Anything and the existing engine. Preserve the input and validate the result.”
 
-Os modos de vídeo chegam a saída 4K, preservando a área lógica. Não inventam detalhes HD. Moldura customizada é opcional em assets/bezel.png do caso; há fallback neutro.
+```powershell
+.\scripts\New-GameProject.ps1 -GamePath 'C:\Games\game.jar' -Id my-game -Title 'My Game' -Width 240 -Height 320
+.\scripts\Build-GameProject.ps1 -ProjectPath .\games\my-game -Package
+```
 
-## Controles
+Each game needs validation of handset APIs, screen size, input, sound and saves. JAD is a descriptor and needs its JAR. SIS/SISX is not interchangeable with J2ME. The generic engine offers SDL3 mapping and a Win32 fallback; the Meteos adapter retains its tested Win32 path. A GameSir was user-tested on Meteos. Xbox/PlayStation devices and other machines remain unverified.
 
-SDL3 é o backend novo. Xbox/XInput e controles PlayStation usam a camada de mapeamento da SDL, mas testes físicos ainda devem ser registrados. Select/Back abre configurações; Start mantém o softkey de pausa padrão; A confirma, B volta e LB/RB alternam abas. Esses papéis podem exigir adaptação para o jogo.
+## Feedback
 
-## Conteúdo público e privado
+Settings → General opens the local log folder. No automatic telemetry or GitHub upload. Report steps, build, normal/ReShade, controller/connection and approximate time in an issue; attach the latest reviewed session log. Never attach the commercial JAR, personal saves or credentials.
 
-O repositório contém código próprio e instruções. Jogos comerciais, saves, experimentos e builds privados são ignorados. A demonstração em fixtures/demo é código original deste projeto. Dependências baixadas são verificadas e mantidas fora do Git. Consulte THIRD-PARTY.md antes de distribuir binários.
+## Public versus private
 
-Licença do código próprio: GPL-3.0-or-later. Sem afiliação com fabricantes ou titulares dos jogos.
+- Public: original launcher/bridge source, original demo fixture, build scripts, game requirements and documentation.
+- Private: original games, saves, commercial art, extracted files, generated game packages and ReShade binaries.
+- `games/`, `build/`, `dependencies/`, `experiments/` and personal logs stay outside Git.
+
+Own code: GPL-3.0-or-later. See [third-party notices](THIRD-PARTY.md). No affiliation with game publishers. C++ recompilation research and the Blogger catalog are future work.
+
+## Português
+
+Base para adaptar jogos Java ME no Windows, com menus, controles, idiomas e logs locais. **Não é um recompilador universal.** Para Meteos, use exclusivamente a variante 1.0.4 de 240×320 com o hash acima. O jogo não acompanha o repositório. Veja [instruções do Meteos](ports/meteos/README.md). A prévia pública fornece fontes e build; o resultado gerado com seu JAR deve permanecer privado.

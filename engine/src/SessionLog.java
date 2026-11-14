@@ -26,7 +26,7 @@ final class SessionLog {
    writer=Files.newBufferedWriter(folder.resolve(name),StandardCharsets.UTF_8,StandardOpenOption.CREATE_NEW);
    System.setOut(new PrintStream(new Tee(System.out,"stdout"),true,StandardCharsets.UTF_8));
    System.setErr(new PrintStream(new Tee(System.err,"stderr"),true,StandardCharsets.UTF_8));
-   event("session.start","app=1.0.2 java="+System.getProperty("java.version")+" os="+System.getProperty("os.name")+" arch="+System.getProperty("os.arch")+" reshade="+(System.getProperty("reshade.library")!=null||System.getProperty("forge.reshade.library")!=null));
+   event("session.start","app="+System.getProperty("jpackage.app-version","development")+" java="+System.getProperty("java.version")+" os="+System.getProperty("os.name")+" arch="+System.getProperty("os.arch")+" reshade="+(System.getProperty("reshade.library")!=null||System.getProperty("forge.reshade.library")!=null));
    Runtime.getRuntime().addShutdownHook(new Thread(()->{event("session.end","shutdown");try{writer.close();}catch(IOException ignored){}},"local-log-close"));
   }catch(IOException ex){System.err.println("Local log unavailable: "+ex.getClass().getSimpleName());}
  }
