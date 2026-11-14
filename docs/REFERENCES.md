@@ -5,6 +5,7 @@
 - SDL3: https://github.com/libsdl-org/SDL — entrada padronizada, hotplug e drivers de gamepads.
 - SDL gamepad: https://wiki.libsdl.org/SDL3/CategoryGamepad
 - Banco de mapeamentos: https://github.com/mdqinc/SDL_GameControllerDB
+- Lista de controles enviada pelo usuário: [avaliação e prioridades](CONTROLLER-REFERENCES.md). SDL3/DB são a rota principal; drivers virtuais, Linux e mapeamento de toque Android ficam em casos separados. Nenhuma instalação foi feita a partir dessa lista.
 - Jamepad: https://github.com/williamahartman/Jamepad — alternativa Java/SDL investigada; esta base usa um bridge SDL3 separado, não Jamepad.
 - EKA2L1: https://github.com/EKA2L1/EKA2L1 — emulação Symbian/N-Gage, não substituto direto do backend J2ME.
 - ReShade: https://reshade.me/ e https://github.com/crosire/reshade
