@@ -1,10 +1,14 @@
-# Legacy Mobile Forge — testing preview
+# Legacy Mobile Forge - testing preview
 
 Windows tooling for adapting Java ME games with reusable video settings, controller input, English/pt-BR UI, local logs and portable packaging. The implemented backend runs J2ME JARs using FreeJ2ME-Plus. **This is not a universal or native C++ recompiler.** Native Symbian/SIS support is a separate investigation.
 
 ## Meteos Astro Blocks
 
-See [Meteos setup and required game version](ports/meteos/README.md). The supported input is **MIDlet 1.0.4, 240×320**, 303,829 bytes, SHA-256 `5756d421e3b878d124fb9c8453a6738ecb99ff6425679668ab2cb6e7b6df5021`. Supply your own original JAR. Other variants are not validated.
+![Meteos Astro Blocks presentation preview with a custom border](docs/screenshots/meteos-preview.jpg)
+
+*Development preview with a custom illustrated border. Public builds use a neutral border by default; the illustrated border is not bundled with the build.*
+
+See [Meteos setup and required game version](ports/meteos/README.md). The supported input is **MIDlet 1.0.4, 240�320**, 303,829 bytes, SHA-256 `5756d421e3b878d124fb9c8453a6738ecb99ff6425679668ab2cb6e7b6df5021`. Supply your own original JAR. Other variants are not validated.
 
 The first public release contains source/build tooling, not a prebuilt commercial game. Normal rendering is recommended; ReShade is optional and experimental.
 
@@ -17,7 +21,7 @@ Build requirements: Windows x64, PowerShell and JDK 21+. Generated portable pack
 
 ## Another game / Work
 
-Open this project in Work and ask: “Read AGENTS.md. Adapt the game at C:\Games\game.jar using Craft Anything and the existing engine. Preserve the input and validate the result.”
+Open this project in Work and ask: "Read AGENTS.md. Adapt the game at C:\Games\game.jar using Craft Anything and the existing engine. Preserve the input and validate the result."
 
 ```powershell
 .\scripts\New-GameProject.ps1 -GamePath 'C:\Games\game.jar' -Id my-game -Title 'My Game' -Width 240 -Height 320
@@ -28,7 +32,7 @@ Each game needs validation of handset APIs, screen size, input, sound and saves.
 
 ## Feedback
 
-Settings → General opens the local log folder. No automatic telemetry or GitHub upload. Report steps, build, normal/ReShade, controller/connection and approximate time in an issue; attach the latest reviewed session log. Never attach the commercial JAR, personal saves or credentials.
+Settings  General opens the local log folder. No automatic telemetry or GitHub upload. Report steps, build, normal/ReShade, controller/connection and approximate time in an issue; attach the latest reviewed session log. Never attach the commercial JAR, personal saves or credentials.
 
 ## Public versus private
 
@@ -38,6 +42,6 @@ Settings → General opens the local log folder. No automatic telemetry or GitHu
 
 Own code: GPL-3.0-or-later. See [third-party notices](THIRD-PARTY.md). No affiliation with game publishers. C++ recompilation research and the Blogger catalog are future work.
 
-## Português
+## Portugu�s
 
-Base para adaptar jogos Java ME no Windows, com menus, controles, idiomas e logs locais. **Não é um recompilador universal.** Para Meteos, use exclusivamente a variante 1.0.4 de 240×320 com o hash acima. O jogo não acompanha o repositório. Veja [instruções do Meteos](ports/meteos/README.md). A prévia pública fornece fontes e build; o resultado gerado com seu JAR deve permanecer privado.
+Base para adaptar jogos Java ME no Windows, com menus, controles, idiomas e logs locais. **N�o � um recompilador universal.** Para Meteos, use exclusivamente a variante 1.0.4 de 240�320 com o hash acima. O jogo n�o acompanha o reposit�rio. Veja [instru��es do Meteos](ports/meteos/README.md). A pr�via p�blica fornece fontes e build; o resultado gerado com seu JAR deve permanecer privado.
